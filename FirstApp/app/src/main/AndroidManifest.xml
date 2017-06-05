@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sdaacademy.zientara.rafal.firstapp">
 
-    <uses-permission android:name="android.permission.READ_SMS"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainHello" />
-        <activity android:name=".PermissionActivity"></activity>
+        <activity android:name=".PermissionActivity" />
+        <activity android:name=".ResourcesActivity"></activity>
     </application>
 
 </manifest>

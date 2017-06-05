@@ -11,8 +11,9 @@ import android.widget.EditText;
 public class MainActivity extends AppCompatActivity {
 
     private EditText editText;
-    private Button button;
+    private Button openHelloActivityButton;
     private Button openPermissionsButton;
+    private Button resourcesFunButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,23 +22,22 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Lifecycle", "onCreate");
 
         editText = (EditText) findViewById(R.id.editText);
-        button = (Button) findViewById(R.id.button);
+        openHelloActivityButton = (Button) findViewById(R.id.button);
         openPermissionsButton = (Button) findViewById(R.id.main_openPermissionsButton);
+        resourcesFunButton = (Button) findViewById(R.id.main_resourcesFunButton);
 
 
-        button.setOnClickListener(new View.OnClickListener() {
+        openHelloActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                onButtonClick(v);
                 openHelloActivity();
             }
         });
 
-        openPermissionsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openPermissionsActivity();
-            }
-        });
+    }
+
+    public void onButtonClick(View view) {
 
     }
 
