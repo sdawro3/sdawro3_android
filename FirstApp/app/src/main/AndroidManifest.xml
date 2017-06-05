@@ -19,9 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainHello" />
+        <activity android:name=".MainHello"
+            android:screenOrientation="sensorLandscape"/>
         <activity android:name=".PermissionActivity" />
-        <activity android:name=".ResourcesActivity"></activity>
+        <activity android:name=".ResourcesActivity"
+            android:screenOrientation="sensor"></activity>
     </application>
 
 </manifest>

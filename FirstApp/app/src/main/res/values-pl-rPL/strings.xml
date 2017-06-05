@@ -1,7 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">FirstApp</string>
+    <string name="app_name">Pierwsza aplikacja</string>
     <string name="przyk_ad_z_uprawnieniami">Przykład z uprawnieniami</string>
     <string name="zabawa_zasobami">Zabawa zasobami</string>
-    <string name="next">Next!</string>
+    <string name="next">Dalej!</string>
     <string name="name">Name</string>
 </resources>

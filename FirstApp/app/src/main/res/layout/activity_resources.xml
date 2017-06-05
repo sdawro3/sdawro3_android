@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/mark"
     tools:context="com.sdaacademy.zientara.rafal.firstapp.ResourcesActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Resources!"
-        android:textSize="24sp"/>
+        android:textSize="@dimen/big_text_size"/>
 
 </LinearLayout>

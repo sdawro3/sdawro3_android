@@ -13,14 +13,16 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name" />
+        android:text="@string/name" />
 
     <Button
+        android:background="@drawable/button_selector"
         android:onClick="onButtonClick"
         android:id="@+id/main_openHelloActivityButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dalej!" />
+        android:textColor="@color/special_button_text_color"
+        android:text="@string/next" />
 
 
     <Button
@@ -28,14 +30,14 @@
         android:id="@+id/main_openPermissionsButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Przykład z uprawnieniami" />
+        android:text="@string/przyk_ad_z_uprawnieniami" />
 
     <Button
         android:onClick="onButtonClick"
         android:id="@+id/main_resourcesFunButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Zabawa zasobami" />
+        android:text="@string/zabawa_zasobami" />
 
 
 </LinearLayout>
