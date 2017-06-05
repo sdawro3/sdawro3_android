@@ -22,23 +22,31 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Lifecycle", "onCreate");
 
         editText = (EditText) findViewById(R.id.editText);
-        openHelloActivityButton = (Button) findViewById(R.id.button);
+        openHelloActivityButton = (Button) findViewById(R.id.main_openHelloActivityButton);
         openPermissionsButton = (Button) findViewById(R.id.main_openPermissionsButton);
         resourcesFunButton = (Button) findViewById(R.id.main_resourcesFunButton);
-
-
-        openHelloActivityButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onButtonClick(v);
-                openHelloActivity();
-            }
-        });
-
     }
 
     public void onButtonClick(View view) {
+        switch (view.getId()) {
+            case R.id.main_openPermissionsButton:
+                openPermissionsActivity();
+                break;
+            case R.id.main_openHelloActivityButton:
+                openHelloActivity();
+                break;
+            case R.id.main_resourcesFunButton:
+                openResourcesActivity();
+                break;
+            default:
+                Log.e("Blad", "Niewspierany przycisk!");
+                break;
+        }
+    }
 
+    private void openResourcesActivity() {
+        Intent intent = new Intent(this, ResourcesActivity.class);
+        startActivity(intent);
     }
 
     private void openPermissionsActivity() {
