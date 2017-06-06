@@ -1,5 +1,6 @@
 package com.sdaacademy.zientara.rafal.shakeit;
 
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -23,6 +24,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         //// TODO: 06.06.2017 init sensor manger and sesnor
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        getSystemService(CAMERA_SERVICE);
+        getSystemService(FINGERPRINT_SERVICE);
+        getSystemService(LOCATION_SERVICE);
+
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
     }
 
@@ -52,6 +57,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             String output = "x = " + x + "\ty = " + y + "\tz = " + z;
             Log.d("ACC", output);
             accText.setText(output);
+
+
+            int r = (int) Math.abs(x) * 25;
+            int g = (int) Math.abs(y) * 25;
+            int b = (int) Math.abs(z) * 25;
+
+            int color = Color.rgb(r,g,b);
+            int negativeColor = Color.rgb(255-r, 255-g, 255-b);
+
+            accText.setBackgroundColor(color);
+            accText.setTextColor(negativeColor);
         }
     }
 
