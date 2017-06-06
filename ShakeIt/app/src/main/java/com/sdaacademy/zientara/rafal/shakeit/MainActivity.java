@@ -6,30 +6,46 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.hardware.fingerprint.FingerprintManager;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
-    private TextView accText;
-    private TextView cameraText;
-    private TextView fingerText;
-    private TextView locationText;
-    private TextView gravityText;
+
+    @BindView(R.id.main_accText)
+    TextView accText;
+
+    @BindView(R.id.cameraText)
+    TextView cameraText;
+
+    @BindView(R.id.fingerText)
+    TextView fingerText;
+
+    @BindView(R.id.locationText)
+    TextView locationText;
+
+    @BindView(R.id.gravityText)
+    TextView gravityText;
+
+    @BindView(R.id.mojaNazwaObiektuId)
+    LinearLayout dummyView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        accText = (TextView) findViewById(R.id.main_accText);
-        cameraText = (TextView) findViewById(R.id.cameraText);
-        fingerText = (TextView) findViewById(R.id.fingerText);
-        locationText = (TextView) findViewById(R.id.locationText);
-        gravityText = (TextView) findViewById(R.id.gravityText);
+        ButterKnife.bind(this);
 
         //// TODO: 06.06.2017 init sensor manger and sesnor
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -40,12 +56,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         else
             cameraText.setText("Kamera niedostepna!\n");
 
-        FingerprintManager fingerprintManager = (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
-        if (fingerprintManager != null) {
-            fingerText.setText("Czytnik linii papilarnych jest dostepny!\n");
-            //use fingerprintManager
-        } else
-            fingerText.setText("Czytnik linii papilarnych jest niedostepny\n");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            checkFingerService();
+        }
 
 
         if (getSystemService(LOCATION_SERVICE) != null)
@@ -57,6 +70,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             gravityText.setText("grawitacja!\n");
         else
             gravityText.setText("Nie ogarniam grawitacji :(\n");
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void checkFingerService() {
+        FingerprintManager fingerprintManager = (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
+        if (fingerprintManager != null && fingerprintManager.isHardwareDetected()) {
+            fingerText.setText("Czytnik linii papilarnych jest dostepny!\n");
+            //use fingerprintManager
+        } else
+            fingerText.setText("Czytnik linii papilarnych jest niedostepny\n");
     }
 
     @Override
