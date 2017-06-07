@@ -14,9 +14,11 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -71,6 +73,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         else
             gravityText.setText("Nie ogarniam grawitacji :(\n");
     }
+
+    @OnClick(R.id.main_accText)
+    public void showToast() {
+        Toast.makeText(this,"Siema!", Toast.LENGTH_SHORT).show();
+    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void checkFingerService() {
