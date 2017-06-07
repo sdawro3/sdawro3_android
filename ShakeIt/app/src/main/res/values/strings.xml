@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ShakeIt</string>
+    <string name="first_text">Super przycisk</string>
 </resources>

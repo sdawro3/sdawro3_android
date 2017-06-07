@@ -2,21 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mojaNazwaObiektuId"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="8dp"
     android:text="dummy text"
     android:textSize="32sp"
-    android:orientation="vertical"
-    android:id="@+id/mojaNazwaObiektuId"
     tools:context="com.sdaacademy.zientara.rafal.shakeit.MainActivity">
 
     <TextView
         android:id="@+id/main_accText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
-
+        android:text="@string/first_text"  />
     <TextView
         android:id="@+id/cameraText"
         android:layout_width="match_parent"

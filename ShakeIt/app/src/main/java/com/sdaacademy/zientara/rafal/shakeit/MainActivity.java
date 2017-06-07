@@ -11,10 +11,11 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.sdaacademy.zientara.rafal.colorconverter.ColorConverter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +23,7 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
+    public static final String TAG = "Lifecycle";
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
 
@@ -48,35 +50,50 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
         //// TODO: 06.06.2017 init sensor manger and sesnor
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        checkModules();
+    }
 
-        if (getSystemService(CAMERA_SERVICE) != null)
-            cameraText.setText("Kamera dostepna!\n");
-        else
-            cameraText.setText("Kamera niedostepna!\n");
+    private void checkModules() {
+        checkCameraService();
+        checkVersionFingerService();
+        checkLocationService();
+        checkGravity();
+    }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            checkFingerService();
-        }
-
-
-        if (getSystemService(LOCATION_SERVICE) != null)
-            locationText.setText("Uslugi lokalizacji sa dostepne!\n");
-        else
-            locationText.setText("Uslugi lokalizacji sa niedostepne :(\n");
-
+    private void checkGravity() {
         if (mSensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY) != null)
             gravityText.setText("grawitacja!\n");
         else
             gravityText.setText("Nie ogarniam grawitacji :(\n");
     }
 
+    private void checkLocationService() {
+        if (getSystemService(LOCATION_SERVICE) != null)
+            locationText.setText("Uslugi lokalizacji sa dostepne!\n");
+        else
+            locationText.setText("Uslugi lokalizacji sa niedostepne :(\n");
+    }
+
+    private void checkVersionFingerService() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            checkFingerService();
+        }
+    }
+
+    private void checkCameraService() {
+        if (getSystemService(CAMERA_SERVICE) != null)
+            cameraText.setText("Kamera dostepna!\n");
+        else
+            cameraText.setText("Kamera niedostepna!\n");
+    }
+
     @OnClick(R.id.main_accText)
     public void showToast() {
-        Toast.makeText(this,"Siema!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Siema!", Toast.LENGTH_SHORT).show();
+
     }
 
 
@@ -95,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onPause();
         //// TODO: 06.06.2017 unregister listener
         mSensorManager.unregisterListener(MainActivity.this);
-        Log.d("Lifecycle", "onPause");
+        Log.d(TAG, "onPause");
     }
 
     @Override
@@ -116,18 +133,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             String output = "x = " + x + "\ty = " + y + "\tz = " + z;
             Log.d("ACC", output);
             accText.setText(output);
-
-
-            int r = (int) Math.abs(x) * 25;
-            int g = (int) Math.abs(y) * 25;
-            int b = (int) Math.abs(z) * 25;
-
-            int color = Color.rgb(r, g, b);
-            int negativeColor = Color.rgb(255 - r, 255 - g, 255 - b);
-
-            accText.setBackgroundColor(color);
-            accText.setTextColor(negativeColor);
+            setAccColors(x, y, z);
         }
+    }
+
+    private void setAccColors(float x, float y, float z) {
+        int color = ColorConverter.getColorFromPosition(x,y,z);
+        int negativeColor = ColorConverter.getNegativeColor(color);
+
+        accText.setBackgroundColor(color);
+        accText.setTextColor(negativeColor);
     }
 
     @Override
