@@ -21,9 +21,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.task_1_chat);
 
-        messageEditText = (EditText)findViewById(R.id.chat_messageEditText);
-        sendImage = (ImageView)findViewById(R.id.chat_sendImage);
-        messagesLinearLayout = (LinearLayout)findViewById(R.id.chat_messagesLinearLayout);
+        messageEditText = (EditText) findViewById(R.id.chat_messageEditText);
+        sendImage = (ImageView) findViewById(R.id.chat_sendImage);
+        messagesLinearLayout = (LinearLayout) findViewById(R.id.chat_messagesLinearLayout);
 
         sendImage.setOnClickListener(this);
     }
@@ -41,10 +41,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         LayoutInflater inflater = getLayoutInflater();
-        TextView myMessageTextView = (TextView) inflater.inflate(R.layout.my_message_item, null, false);
-        myMessageTextView.setText(message);
 
-        messagesLinearLayout.addView(myMessageTextView);
+        inflater.inflate(R.layout.my_message_item, messagesLinearLayout, true);
+        View messageView = messagesLinearLayout.getChildAt(messagesLinearLayout.getChildCount() - 1);
+        if(messageView instanceof TextView)
+            ((TextView) messageView).setText(message);
 
+        TextView textView = (TextView) inflater.inflate(R.layout.my_message_item, messagesLinearLayout, false);
+        textView.setText(message);
+        messagesLinearLayout.addView(textView);
     }
 }

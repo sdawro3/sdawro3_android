@@ -5,4 +5,5 @@
     android:layout_gravity="right"
     android:layout_margin="8dp"
     android:background="@drawable/my_message_background"
+    android:textColor="@android:color/white"
     android:text="Cześć!" />
