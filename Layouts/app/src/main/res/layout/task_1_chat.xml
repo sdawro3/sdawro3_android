@@ -82,6 +82,7 @@
         android:padding="8dp">
 
         <ImageView
+            android:onClick="sendMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
@@ -92,6 +93,7 @@
             android:layout_alignParentEnd="true" />
 
         <EditText
+
             android:id="@+id/chat_messageEditText"
             android:background="@android:color/white"
             android:layout_width="wrap_content"
