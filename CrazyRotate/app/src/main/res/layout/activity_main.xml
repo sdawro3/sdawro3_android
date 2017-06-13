@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context="com.sdaacademy.zientara.rafal.crazyrotate.MainActivity">
+
+    <Button
+        android:id="@+id/wincyjButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="wincyj"
+        android:textSize="24sp"
+        android:text="Wincyj!"/>
+
+    <TextView
+        android:id="@+id/wincyjText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:text="Tu będzie liczba"/>
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:hint="Wpisz coś..."/>
+
+</LinearLayout>
