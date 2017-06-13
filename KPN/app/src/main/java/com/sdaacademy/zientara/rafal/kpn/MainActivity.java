@@ -6,8 +6,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.Random;
 
@@ -22,10 +24,16 @@ public class MainActivity extends AppCompatActivity {
     private Drawable stoneDrawable;
 
     @BindView(R.id.myActionImage)
-    ImageView myActionImageView;
+    AppCompatImageView myActionImageView;
 
     @BindView(R.id.computerActionImage)
-    ImageView computerActionImage;
+    AppCompatImageView computerActionImage;
+
+    @BindView(R.id.myPointsText)
+    TextView myPointsText;
+
+    @BindView(R.id.computerPointsText)
+    TextView computerPointsText;
 
     private ActionEnum myActionEnum;
     private ActionEnum computerActionEnum;
@@ -93,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         myScore = 0;
                         computerScore = 0;
+                        refreshPointsTexts();
                     }
                 })
                 .setNeutralButton("Lol",null)
@@ -103,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .create();
-
         alertDialog.show();
     }
 
@@ -112,6 +120,13 @@ public class MainActivity extends AppCompatActivity {
             myScore++;
         if (gameResult.equals(GameResult.LOSE))
             computerScore++;
+        refreshPointsTexts();
+    }
+
+    private void refreshPointsTexts() {
+        //myPointsText.setText(R.string.app_name);//nope!
+        myPointsText.setText(Integer.toString(myScore));
+        computerPointsText.setText(Integer.toString(computerScore));
     }
 
     private GameResult getGameResult() {

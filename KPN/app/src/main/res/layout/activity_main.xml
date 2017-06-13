@@ -39,6 +39,7 @@
         android:weightSum="2">
 
         <TextView
+            android:id="@+id/myPointsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -47,6 +48,7 @@
             android:textSize="24sp" />
 
         <TextView
+            android:id="@+id/computerPointsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
