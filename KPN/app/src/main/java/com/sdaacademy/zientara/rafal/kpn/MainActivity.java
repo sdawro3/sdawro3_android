@@ -2,16 +2,18 @@ package com.sdaacademy.zientara.rafal.kpn;
 
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import java.util.Random;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,8 +21,12 @@ public class MainActivity extends AppCompatActivity {
     private Drawable paperDrawable;
     private Drawable stoneDrawable;
 
-    private ImageView myAction;
-    private ImageView computerActionImage;
+    @BindView(R.id.myActionImage)
+    ImageView myActionImageView;
+
+    @BindView(R.id.computerActionImage)
+    ImageView computerActionImage;
+
     private ActionEnum myActionEnum;
     private ActionEnum computerActionEnum;
     private Random random;
@@ -31,33 +37,38 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
         random = new Random();
 
         cutDrawable = ContextCompat.getDrawable(this, R.drawable.ic_content_cut_black_24dp);
         paperDrawable = ContextCompat.getDrawable(this, R.drawable.ic_content_copy_black_24dp);
         stoneDrawable = ContextCompat.getDrawable(this, R.drawable.ic_brightness_1_black_24dp);
-
-        myAction = (ImageView) findViewById(R.id.myActionImage);
-        computerActionImage = (ImageView) findViewById(R.id.computerActionImage);
     }
 
-    public void myClick(View view) {
-        switch (view.getId()) {
-            case R.id.cutButton:
-                myAction.setImageDrawable(cutDrawable);
-                myActionEnum = ActionEnum.CUT;
-                break;
-            case R.id.paperButton:
-                myAction.setImageDrawable(paperDrawable);
-                myActionEnum = ActionEnum.PAPER;
-                break;
-            case R.id.stoneButton:
-                myAction.setImageDrawable(stoneDrawable);
-                myActionEnum = ActionEnum.STONE;
-                break;
-        }
+    @OnClick(R.id.cutButton)
+    public void useScissors() {
+        myActionImageView.setImageDrawable(cutDrawable);
+        myActionEnum = ActionEnum.SCISSORS;
+        startGame();
+    }
 
+
+    @OnClick(R.id.stoneButton)
+    public void useStone() {
+        myActionImageView.setImageDrawable(stoneDrawable);
+        myActionEnum = ActionEnum.STONE;
+        startGame();
+    }
+
+    @OnClick(R.id.paperButton)
+    public void usePaper() {
+        myActionImageView.setImageDrawable(paperDrawable);
+        myActionEnum = ActionEnum.PAPER;
+        startGame();
+    }
+
+    private void startGame() {
         computerActionEnum = getRandomAction();
         setComputerImage();
         GameResult gameResult = getGameResult();
@@ -112,9 +123,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean isMyWin() {
-        return (myActionEnum.equals(ActionEnum.CUT) && computerActionEnum.equals(ActionEnum.PAPER)) ||
+        return (myActionEnum.equals(ActionEnum.SCISSORS) && computerActionEnum.equals(ActionEnum.PAPER)) ||
                 (myActionEnum.equals(ActionEnum.PAPER) && computerActionEnum.equals(ActionEnum.STONE)) ||
-                (myActionEnum.equals(ActionEnum.STONE) && computerActionEnum.equals(ActionEnum.CUT));
+                (myActionEnum.equals(ActionEnum.STONE) && computerActionEnum.equals(ActionEnum.SCISSORS));
     }
 
     private void setComputerImage() {
@@ -128,13 +139,13 @@ public class MainActivity extends AppCompatActivity {
             return ActionEnum.STONE;
         if (randomAction == 1)
             return ActionEnum.PAPER;
-        return ActionEnum.CUT;
+        return ActionEnum.SCISSORS;
     }
 
     private Drawable getDrawableForAction(ActionEnum action) {
         switch (action) {
             default:
-            case CUT:
+            case SCISSORS:
                 return cutDrawable;
             case PAPER:
                 return paperDrawable;
@@ -146,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
     enum ActionEnum {
         STONE,
         PAPER,
-        CUT;
+        SCISSORS;
     }
 
     enum GameResult {

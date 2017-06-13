@@ -72,7 +72,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="myClick"
             android:padding="@dimen/medium_padding"
             app:srcCompat="@drawable/ic_content_cut_black_24dp" />
 
@@ -86,7 +85,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="myClick"
             android:padding="@dimen/medium_padding"
             app:srcCompat="@drawable/ic_content_copy_black_24dp" />
 
@@ -100,7 +98,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="myClick"
             android:padding="@dimen/medium_padding"
             app:srcCompat="@drawable/ic_brightness_1_black_24dp" />
 
