@@ -1,0 +1,19 @@
+<string-array name="wersje_androida">
+    <item>Apple Pie</item>
+    <item>Banana Bread</item>
+    <item>Cupcake</item>
+    <item>Donut</item>
+    <item>Eclair</item>
+    <item>Froyo</item>
+    <item>Gingerbread</item>
+    <item>Honeycomb</item>
+    <item>Ice Cream Sandwich</item>
+    <item>Jelly Bean</item>
+    <item>KitKat</item>
+    <item>Lollipop</item>
+    <item>Marshmallow</item>
+    <item>Nougat</item>
+</string-array>
+
+<color name="yellow_500">#FFEB3B</color>
+<color name="yellow_600">#FDD835</color>

@@ -1,4 +1,4 @@
-package com.sdaacademy.zientara.rafal.crazyrotate;
+package com.sdaacademy.zientara.rafal.rotatelist;
 
 import android.os.Bundle;
 import android.os.PersistableBundle;
