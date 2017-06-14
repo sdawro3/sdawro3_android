@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">RotateList</string>
 
+    <bool name="czy_jest_super">true</bool>
+
     <string-array name="wersje_androida">
         <item>Apple Pie</item>
         <item>Banana Bread</item>
