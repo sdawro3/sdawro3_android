@@ -6,6 +6,21 @@
     android:layout_height="match_parent"
     tools:context="com.sdaacademy.zientara.rafal.rotatelist.MainActivity">
 
+    <TextView
+        android:id="@+id/emptyListText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/empty_message"
+        android:layout_above="@+id/button"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        style="@style/InfoBigText"
+        android:gravity="center"
+        android:textSize="24sp"/>
+
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
@@ -15,10 +30,17 @@
 
     <Button
         android:id="@+id/button"
+        android:textSize="12sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="randomVersion"
         android:text="Losuj" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 </RelativeLayout>

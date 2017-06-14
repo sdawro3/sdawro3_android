@@ -19,4 +19,7 @@
         <item>Marshmallow</item>
         <item>Nougat</item>
     </string-array>
+    <string name="title_activity_lol">LolActivity</string>
+
+    <string name="empty_message"><i><u>Lista</u> <b>jest</b> pusta</i></string>
 </resources>
