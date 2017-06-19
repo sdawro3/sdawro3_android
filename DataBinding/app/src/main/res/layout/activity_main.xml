@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="java.lang.Float" />
+
+        <variable
+            name="weakBeerText"
+            type="java.lang.String" />
+
+        <variable
+            name="strongBeerText"
+            type="java.lang.String" />
+
+        <variable
+            name="beer"
+            type="com.sdaacademy.zientara.rafal.databinding.models.Beer" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="showTyskie"
+                android:text="T" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="showKasztelan"
+                android:text="K" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{beer.name}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{Float.toString(beer.power)}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="To jest mocne piwo!"
+            android:textColor="@android:color/holo_red_dark"
+            android:visibility="@{View.VISIBLE}" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="moreSpiritus"
+            android:text="Dodaj spirytus!"/>
+
+    </LinearLayout>
+
+</layout>

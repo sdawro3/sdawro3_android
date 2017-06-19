@@ -13,14 +13,6 @@ public class User implements Parcelable {
     public User() {
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     protected User(Parcel in) {
         name = in.readString();
     }
@@ -36,6 +28,14 @@ public class User implements Parcelable {
             return new User[size];
         }
     };
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @Override
     public int describeContents() {
