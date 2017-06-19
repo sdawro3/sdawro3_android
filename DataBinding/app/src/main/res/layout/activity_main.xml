@@ -66,6 +66,19 @@
             android:textColor="@android:color/holo_red_dark"
             android:visibility="@{View.VISIBLE}" />
 
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{beer.power > 9 ? strongBeerText : weakBeerText}"
+            android:textColor="@android:color/holo_red_dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{Float.toString(beer.price)}" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
