@@ -61,6 +61,7 @@ public class AddRestaurantDialogFragment extends DialogFragment {
                     Toast.makeText(getContext(), "Wyslane! :D", Toast.LENGTH_SHORT).show();
                     dismiss();
                     //clickRefreshList();
+
                 } else {
 
                     Toast.makeText(getContext(), "Nie wyslalem :(\n" + response.errorBody().toString(), Toast.LENGTH_SHORT).show();
