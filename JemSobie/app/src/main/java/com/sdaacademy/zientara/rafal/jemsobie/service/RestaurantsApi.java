@@ -20,7 +20,6 @@ import retrofit2.http.Path;
 
 public interface RestaurantsApi {
 //    String ENDPOINT = "http://192.168.1.7:3000/";
-    public static String ENDPOINT = "http://10.40.21.186:3000/";
 
     //@GET("/restaurants")
     //Observable<List<Restaurant>> getAllRestaurantsRxJava();
@@ -31,10 +30,10 @@ public interface RestaurantsApi {
     @GET("/restaurants/{id}")
     Call<Restaurant> getRestaurant(@Path("id") Long id);
 
-    @POST("/restaurant")
+    @POST("/restaurants")
     Call<Restaurant> postRestaurants(@Body Restaurant restaurant);
 
-    @PUT("/restaurant/{id}")
+    @PUT("/restaurants/{id}")
     Call<Restaurant> putRestaurants(@Path("id") Long id, @Body Restaurant restaurant);
 
     @DELETE("/restaurants/{id}")

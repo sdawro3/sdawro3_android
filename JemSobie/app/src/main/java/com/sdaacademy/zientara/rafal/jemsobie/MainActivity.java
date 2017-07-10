@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -16,7 +18,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sdaacademy.zientara.rafal.jemsobie.adapter.RecyclerViewAdapter;
 import com.sdaacademy.zientara.rafal.jemsobie.adapter.RestaurantsHolderArrayAdapter;
+import com.sdaacademy.zientara.rafal.jemsobie.dialogs.AddRestaurantDialogFragment;
 import com.sdaacademy.zientara.rafal.jemsobie.models.Restaurant;
+import com.sdaacademy.zientara.rafal.jemsobie.retrofit.BaseRetrofit;
 import com.sdaacademy.zientara.rafal.jemsobie.service.RestaurantsApi;
 
 import java.util.ArrayList;
@@ -50,12 +54,11 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.main_recyclerView)
     RecyclerView recyclerView;
 
-    private Retrofit retrofit;
-    private RestaurantsApi restaurantsApi;
     private List<Restaurant> restaurantList;
     private ProgressDialog progressDialog;
     private ArrayAdapter adapter;
     private RecyclerViewAdapter recyclerViewAdapter;
+    private BaseRetrofit baseRetrofit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,22 +78,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void prepareRestApi() {
-        Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
-                .setLenient()
-                .create();
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl(RestaurantsApi.ENDPOINT)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                //.addCallAdapterFactory(RxJava2CallAdapterFactory.create())//potrzebne aby można było dać Observable zamiast Call
-                .build();
-
-        restaurantsApi = retrofit.create(RestaurantsApi.class);
+        baseRetrofit = new BaseRetrofit();
     }
 
     private void updateListWithoutRxJava() {
-        Call<List<Restaurant>> allPeople = restaurantsApi.getAllRestaurants();
+        Call<List<Restaurant>> allPeople = baseRetrofit.getRestaurantsApi().getAllRestaurants();
         allPeople.enqueue(new Callback<List<Restaurant>>() {
             @Override
             public void onResponse(Call<List<Restaurant>> call, Response<List<Restaurant>> response) {
@@ -163,6 +155,13 @@ public class MainActivity extends AppCompatActivity {
         adapter = new RestaurantsHolderArrayAdapter(getApplicationContext(), restaurantList);
         listView.setAdapter(adapter);
 
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                return false;
+            }
+        });
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewAdapter = new RecyclerViewAdapter(getApplicationContext(), restaurantList);
         recyclerView.setAdapter(recyclerViewAdapter);
@@ -171,6 +170,9 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.main_addButton)
     public void clickShowAddRestaurantDialog() {
         //// TODO: 09.07.2017 open DialogFragment and add Restaurant
+
+        AddRestaurantDialogFragment addRestaurantDialogFragment = new AddRestaurantDialogFragment();
+        addRestaurantDialogFragment.show(getSupportFragmentManager(), null);
     }
 
     @OnClick(R.id.main_refreshButton)
