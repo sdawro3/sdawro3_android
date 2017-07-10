@@ -63,7 +63,6 @@ public class AddRestaurantDialogFragment extends DialogFragment {
                     //clickRefreshList();
 
                 } else {
-
                     Toast.makeText(getContext(), "Nie wyslalem :(\n" + response.errorBody().toString(), Toast.LENGTH_SHORT).show();
                 }
             }
