@@ -1,7 +1,6 @@
 package com.sdaacademy.zientara.rafal.jemsobie;
 
 import android.app.ProgressDialog;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,14 +13,12 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.sdaacademy.zientara.rafal.jemsobie.adapter.RecyclerViewAdapter;
 import com.sdaacademy.zientara.rafal.jemsobie.adapter.RestaurantsHolderArrayAdapter;
-import com.sdaacademy.zientara.rafal.jemsobie.dialogs.AddRestaurantDialogFragment;
+import com.sdaacademy.zientara.rafal.jemsobie.dialogs.AddEditRestaurantDialogFragment;
+import com.sdaacademy.zientara.rafal.jemsobie.dialogs.DeleteRestaurantDialogFragment;
 import com.sdaacademy.zientara.rafal.jemsobie.models.Restaurant;
 import com.sdaacademy.zientara.rafal.jemsobie.retrofit.BaseRetrofit;
-import com.sdaacademy.zientara.rafal.jemsobie.service.RestaurantsApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,18 +26,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DeleteRestaurantDialogFragment.OnDeleteSuccess {
 
     @BindView(R.id.main_refreshButton)
     Button refreshButton;
@@ -158,7 +148,12 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                return false;
+                Restaurant restaurant = restaurantList.get(i);
+                AddEditRestaurantDialogFragment dialogFragment = AddEditRestaurantDialogFragment.newInstance(restaurant);
+                dialogFragment.show(getSupportFragmentManager(), null);
+                Log.d("CLICK", "id:" + i);
+
+                return true;
             }
         });
 
@@ -171,12 +166,17 @@ public class MainActivity extends AppCompatActivity {
     public void clickShowAddRestaurantDialog() {
         //// TODO: 09.07.2017 open DialogFragment and add Restaurant
 
-        AddRestaurantDialogFragment addRestaurantDialogFragment = new AddRestaurantDialogFragment();
+        AddEditRestaurantDialogFragment addRestaurantDialogFragment = new AddEditRestaurantDialogFragment();
         addRestaurantDialogFragment.show(getSupportFragmentManager(), null);
     }
 
     @OnClick(R.id.main_refreshButton)
     public void clickRefreshList() {
         downloadRestaurants();
+    }
+
+    @Override
+    public void onDeleteSuccess() {
+        clickRefreshList();
     }
 }
