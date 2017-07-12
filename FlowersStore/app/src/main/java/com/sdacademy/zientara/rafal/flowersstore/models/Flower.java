@@ -15,6 +15,10 @@ public class Flower {
     @SerializedName("productId")
     private Long id;
 
+    public String getPhotoUrl() {
+        return "http://services.hanselandpetal.com/photos/" + getPhoto();
+    }
+
     public String getCategory() {
         return category;
     }
