@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements DeleteRestaurantD
     }
 
     private void updateListRxJava() {
-        /*restaurantsApi.getAllRestaurantsRxJava()
+        restaurantsApi.getAllRestaurantsRxJava()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<Restaurant>>() {
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements DeleteRestaurantD
                     public void onComplete() {
                         hideProgressDialog();
                     }
-                });*/
+                });
     }
 
     private void hideProgressDialog() {
