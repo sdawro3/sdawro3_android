@@ -74,10 +74,9 @@ public class MainActivity extends AppCompatActivity implements CoolListAdapter.O
 
                     @Override
                     public void onNext(@io.reactivex.annotations.NonNull List<Flower> flowers) {
-//                        MainActivity.this.flowersList = flowers;
+                        Log.d("RxJava", "New flowers ! " + flowers.size());
                         flowersList.addAll(flowers);
                         coolListAdapter.notifyDataSetChanged();
-                        Log.d("RxJava", "New flowers ! " + flowers.size());
                     }
 
                     @Override

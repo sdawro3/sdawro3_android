@@ -1,5 +1,7 @@
 package com.sdaacademy.zientara.rafal.jemsobie.retrofit;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sdaacademy.zientara.rafal.jemsobie.models.Restaurant;
@@ -18,41 +20,27 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class BaseRetrofit {
-    private static String ENDPOINT = "http://10.40.21.186:3000/";
+//    private static String ENDPOINT = "http://10.40.21.186:3000/";
+    private static String ENDPOINT = "http://192.168.1.7:3000/";
 
     private final Retrofit retrofit;
     private final RestaurantsApi restaurantsApi;
 
     public BaseRetrofit() {
-        Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
-                .setLenient()
-                .create();
-
         retrofit = new Retrofit.Builder()
                 .baseUrl(ENDPOINT)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                //.addCallAdapterFactory(RxJava2CallAdapterFactory.create())//potrzebne aby można było dać Observable zamiast Call
+                .addConverterFactory(GsonConverterFactory.create(getGson()))
                 .build();
 
         restaurantsApi = retrofit.create(RestaurantsApi.class);
+    }
 
-        Call<List<Restaurant>> allRestaurantsCall = restaurantsApi.getAllRestaurants();
-        allRestaurantsCall.enqueue(new Callback<List<Restaurant>>() {
-            @Override
-            public void onResponse(Call<List<Restaurant>> call, Response<List<Restaurant>> response) {
-                if(response.isSuccessful()) {
-
-                } else
-                    ;//error
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Restaurant>> call, Throwable t) {
-                t.getMessage();//error
-            }
-        });
+    @NonNull
+    private Gson getGson() {
+        return new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                .setLenient()
+                .create();
     }
 
     public RestaurantsApi getRestaurantsApi() {

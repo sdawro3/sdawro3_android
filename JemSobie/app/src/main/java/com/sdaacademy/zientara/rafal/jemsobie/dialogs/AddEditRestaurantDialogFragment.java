@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.sdaacademy.zientara.rafal.jemsobie.MainActivity;
 import com.sdaacademy.zientara.rafal.jemsobie.R;
+import com.sdaacademy.zientara.rafal.jemsobie.interfaces.ForceRefreshList;
 import com.sdaacademy.zientara.rafal.jemsobie.models.Restaurant;
 import com.sdaacademy.zientara.rafal.jemsobie.retrofit.BaseRetrofit;
 
@@ -71,10 +75,13 @@ public class AddEditRestaurantDialogFragment extends DialogFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        refreshActionState();
+    }
 
-        if(restaurant!=null) {
+    private void refreshActionState() {
+        if (restaurant != null)
             updateView(restaurant);
-        } else {
+        else {
             addButton.setVisibility(View.VISIBLE);
             editButton.setVisibility(View.GONE);
         }
@@ -96,14 +103,12 @@ public class AddEditRestaurantDialogFragment extends DialogFragment {
         restaurantCall.enqueue(new Callback<Restaurant>() {
             @Override
             public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     Toast.makeText(getContext(), "Wyslane! :D", Toast.LENGTH_SHORT).show();
                     dismiss();
-                    //clickRefreshList();
-
-                } else {
+                    onEditOrAddSuccessCallback();
+                } else
                     Toast.makeText(getContext(), "Nie wyslalem :(\n" + response.errorBody().toString(), Toast.LENGTH_SHORT).show();
-                }
             }
 
             @Override
@@ -123,13 +128,12 @@ public class AddEditRestaurantDialogFragment extends DialogFragment {
         restaurantCall.enqueue(new Callback<Restaurant>() {
             @Override
             public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     Toast.makeText(getContext(), "Zedytowane! :D", Toast.LENGTH_SHORT).show();
                     dismiss();
-                    //clickRefreshList();
-                } else {
+                    onEditOrAddSuccessCallback();
+                } else
                     Toast.makeText(getContext(), "Nie zedytowalem :(\n" + response.errorBody().toString(), Toast.LENGTH_SHORT).show();
-                }
             }
 
             @Override
@@ -139,9 +143,17 @@ public class AddEditRestaurantDialogFragment extends DialogFragment {
         });
     }
 
+    private void onEditOrAddSuccessCallback() {
+        FragmentActivity activity = getActivity();
+        if (activity instanceof ForceRefreshList && activity instanceof MainActivity)
+            ((ForceRefreshList) activity).refreshList();
+        else
+            Log.w(getClass().getSimpleName(), String.format("Don't forget to implement %s", ForceRefreshList.class.getSimpleName()));
+    }
+
     @NonNull
     private Restaurant getRestaurant() {
-        if(restaurant == null)
+        if (restaurant == null)
             restaurant = new Restaurant();
         restaurant.setName(nameEditText.getText().toString().trim());
         restaurant.setComment(commentEditText.getText().toString().trim());

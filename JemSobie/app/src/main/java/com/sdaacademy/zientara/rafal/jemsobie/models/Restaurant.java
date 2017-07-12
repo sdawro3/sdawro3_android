@@ -10,27 +10,11 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Restaurant implements Parcelable {
-    //    @SerializedName("id")
-//    @Expose
     Long id;
-
-
-    //http://10.40.21.186:3000/restaurants
-
-    //    @Expose
     @SerializedName("restaurant_name")
     String name;
-
-    //    @SerializedName("comment")
-//    @Expose
     String comment;
-
-    //    @SerializedName("url")
-//    @Expose
     String url;
-
-    //    @SerializedName("rating")
-//    @Expose
     Float rating;
 
     public Restaurant() {

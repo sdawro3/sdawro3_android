@@ -19,11 +19,6 @@ import retrofit2.http.Path;
  */
 
 public interface RestaurantsApi {
-//    String ENDPOINT = "http://192.168.1.7:3000/";
-
-    //@GET("/restaurants")
-    //Observable<List<Restaurant>> getAllRestaurantsRxJava();
-
     @GET("/restaurants")
     Call<List<Restaurant>> getAllRestaurants();
 

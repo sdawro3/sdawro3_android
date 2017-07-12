@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.sdaacademy.zientara.rafal.jemsobie.MainActivity;
 import com.sdaacademy.zientara.rafal.jemsobie.R;
+import com.sdaacademy.zientara.rafal.jemsobie.interfaces.ForceRefreshList;
 import com.sdaacademy.zientara.rafal.jemsobie.models.Restaurant;
 import com.sdaacademy.zientara.rafal.jemsobie.retrofit.BaseRetrofit;
 
@@ -54,7 +55,6 @@ public class DeleteRestaurantDialogFragment extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //// TODO: 11.07.2017 pobierz restauracje
         Bundle arguments = getArguments();
         if (arguments != null)
             restaurant = arguments.getParcelable("RESTAURANT_KEY");
@@ -70,13 +70,11 @@ public class DeleteRestaurantDialogFragment extends DialogFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //// TODO: 11.07.2017 szczegoly restauracji
         messageText.append("\n" + restaurant.getName());
     }
 
     @OnClick(R.id.deleteRestaurant_deleteButton)
     public void deleteRestaurant() {
-        //// TODO: 11.07.2017 id restauracji?
         new BaseRetrofit()
                 .getRestaurantsApi()
                 .deleteRestaurants(restaurant.getId())
@@ -101,16 +99,12 @@ public class DeleteRestaurantDialogFragment extends DialogFragment {
         });
     }
 
-    public interface OnDeleteSuccess {
-        void onDeleteSuccess();
-    }
-
     private void onDeleteSuccessCallback() {
         FragmentActivity activity = getActivity();
-        if(activity instanceof OnDeleteSuccess && activity instanceof MainActivity) {
-            ((OnDeleteSuccess) activity).onDeleteSuccess();
+        if(activity instanceof ForceRefreshList && activity instanceof MainActivity) {
+            ((ForceRefreshList) activity).refreshList();
         } else
-            Log.w(getClass().getSimpleName(), String.format("Don't forget to implement %s", OnDeleteSuccess.class.getSimpleName()));
+            Log.w(getClass().getSimpleName(), String.format("Don't forget to implement %s", ForceRefreshList.class.getSimpleName()));
     }
 
     private String getErrorString(Response<Restaurant> response) {
@@ -128,6 +122,4 @@ public class DeleteRestaurantDialogFragment extends DialogFragment {
     public void cancel() {
         dismiss();
     }
-
-
 }

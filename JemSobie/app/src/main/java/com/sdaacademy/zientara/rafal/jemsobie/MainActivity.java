@@ -1,6 +1,8 @@
 package com.sdaacademy.zientara.rafal.jemsobie;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,7 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements DeleteRestaurantDialogFragment.OnDeleteSuccess {
+public class MainActivity extends AppCompatActivity implements DeleteRestaurantDialogFragment.ForceRefreshList {
 
     @BindView(R.id.main_refreshButton)
     Button refreshButton;
@@ -98,35 +100,6 @@ public class MainActivity extends AppCompatActivity implements DeleteRestaurantD
         recyclerViewAdapter.notifyDataSetChanged();
     }
 
-    private void updateListRxJava() {
-        restaurantsApi.getAllRestaurantsRxJava()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<Restaurant>>() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-                        clearList();
-                    }
-
-                    @Override
-                    public void onNext(@NonNull List<Restaurant> reposes) {
-                        restaurantList.addAll(reposes);
-                        adapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        Log.d("SCIAGANIEE", e.getMessage());
-                        hideProgressDialog();
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        hideProgressDialog();
-                    }
-                });
-    }
-
     private void hideProgressDialog() {
         if (progressDialog != null)
             progressDialog.dismiss();
@@ -148,11 +121,9 @@ public class MainActivity extends AppCompatActivity implements DeleteRestaurantD
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Restaurant restaurant = restaurantList.get(i);
-                AddEditRestaurantDialogFragment dialogFragment = AddEditRestaurantDialogFragment.newInstance(restaurant);
-                dialogFragment.show(getSupportFragmentManager(), null);
                 Log.d("CLICK", "id:" + i);
-
+                final Restaurant restaurant = restaurantList.get(i);
+                showDeleteOrEditDialog(restaurant);
                 return true;
             }
         });
@@ -162,10 +133,39 @@ public class MainActivity extends AppCompatActivity implements DeleteRestaurantD
         recyclerView.setAdapter(recyclerViewAdapter);
     }
 
+    private void showDeleteOrEditDialog(final Restaurant restaurant) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this)
+                .setMessage("What do U want to do?")
+                .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        showDeleteRestaurantDialog(restaurant);
+                        dialog.dismiss();
+                    }
+                })
+                .setNeutralButton("Cancel", null)
+                .setPositiveButton("Edit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        showEditRestaurantDialog(restaurant);
+                        dialog.dismiss();
+                    }
+                });
+        dialog.show();
+    }
+
+    private void showEditRestaurantDialog(Restaurant restaurant) {
+        AddEditRestaurantDialogFragment dialogFragment = AddEditRestaurantDialogFragment.newInstance(restaurant);
+        dialogFragment.show(getSupportFragmentManager(), null);
+    }
+
+    private void showDeleteRestaurantDialog(Restaurant restaurant) {
+        DeleteRestaurantDialogFragment dialogFragment = DeleteRestaurantDialogFragment.newInstance(restaurant);
+        dialogFragment.show(getSupportFragmentManager(), null);
+    }
+
     @OnClick(R.id.main_addButton)
     public void clickShowAddRestaurantDialog() {
-        //// TODO: 09.07.2017 open DialogFragment and add Restaurant
-
         AddEditRestaurantDialogFragment addRestaurantDialogFragment = new AddEditRestaurantDialogFragment();
         addRestaurantDialogFragment.show(getSupportFragmentManager(), null);
     }
@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements DeleteRestaurantD
     }
 
     @Override
-    public void onDeleteSuccess() {
+    public void refreshList() {
         clickRefreshList();
     }
 }
