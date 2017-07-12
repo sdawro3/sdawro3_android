@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#DDD"
+    android:minHeight="?attr/listPreferredItemHeight"
     android:orientation="vertical"
-    android:padding="@dimen/medium_padding">
+    android:paddingEnd="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingStart="16dp">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/restaurantItem_nameText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:layout_marginTop="8dp"
+        android:text="dummy text"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textColor="@android:color/black" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/restaurantItem_commentText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="dummy text" />
 
 </LinearLayout>

@@ -19,6 +19,7 @@ import com.sdaacademy.zientara.rafal.jemsobie.adapter.RecyclerViewAdapter;
 import com.sdaacademy.zientara.rafal.jemsobie.adapter.RestaurantsHolderArrayAdapter;
 import com.sdaacademy.zientara.rafal.jemsobie.dialogs.AddEditRestaurantDialogFragment;
 import com.sdaacademy.zientara.rafal.jemsobie.dialogs.DeleteRestaurantDialogFragment;
+import com.sdaacademy.zientara.rafal.jemsobie.interfaces.ForceRefreshList;
 import com.sdaacademy.zientara.rafal.jemsobie.models.Restaurant;
 import com.sdaacademy.zientara.rafal.jemsobie.retrofit.BaseRetrofit;
 
@@ -32,13 +33,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements DeleteRestaurantDialogFragment.ForceRefreshList {
+public class MainActivity extends AppCompatActivity implements ForceRefreshList {
 
     @BindView(R.id.main_refreshButton)
     Button refreshButton;
 
     @BindView(R.id.main_addButton)
     Button addButton;
+
+    @BindView(R.id.main_removeFirstButton)
+    Button removeFirstButton;
 
     @BindView(R.id.main_listView)
     ListView listView;
@@ -92,6 +96,16 @@ public class MainActivity extends AppCompatActivity implements DeleteRestaurantD
                 hideProgressDialog();
             }
         });
+    }
+
+    @OnClick(R.id.main_removeFirstButton)
+    public void removeFirstElementFromRecyclerView() {
+        if (restaurantList.size() > 2) {
+            int position = 1;
+            restaurantList.remove(position);
+            recyclerViewAdapter.notifyItemRemoved(position);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     private void clearList() {

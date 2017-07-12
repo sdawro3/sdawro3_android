@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.sdaacademy.zientara.rafal.jemsobie.R;
 import com.sdaacademy.zientara.rafal.jemsobie.models.Restaurant;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public CustomViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(android.R.layout.simple_list_item_2, null);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.restaurant_item, viewGroup, false);
         CustomViewHolder viewHolder = new CustomViewHolder(view);
         return viewHolder;
     }
@@ -57,8 +58,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         CustomViewHolder(View view) {
             super(view);
-            this.name = (TextView) view.findViewById(android.R.id.text1);
-            this.comment = (TextView) view.findViewById(android.R.id.text2);
+            this.name = (TextView) view.findViewById(R.id.restaurantItem_nameText);
+            this.comment = (TextView) view.findViewById(R.id.restaurantItem_commentText);
         }
     }
 }
