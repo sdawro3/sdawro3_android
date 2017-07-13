@@ -22,6 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class BaseRetrofit {
 //    private static String ENDPOINT = "http://10.40.21.186:3000/";
     private static String ENDPOINT = "http://192.168.1.7:3000/";
+//    private static String ENDPOINT = "https://restaurants-8560c.firebaseio.com/";
 
     private final Retrofit retrofit;
     private final RestaurantsApi restaurantsApi;

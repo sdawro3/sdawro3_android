@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements ForceRefreshList 
 
             @Override
             public void onFailure(Call<List<Restaurant>> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Zjebalo sie\n" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Ojoj\n" + t.getMessage(), Toast.LENGTH_SHORT).show();
                 hideProgressDialog();
             }
         });

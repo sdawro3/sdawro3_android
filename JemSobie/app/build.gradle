@@ -43,4 +43,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
 
     compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+
+    //firebase
+    apply plugin: 'com.google.gms.google-services'
 }

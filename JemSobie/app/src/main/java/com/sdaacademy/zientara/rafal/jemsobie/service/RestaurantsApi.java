@@ -19,7 +19,7 @@ import retrofit2.http.Path;
  */
 
 public interface RestaurantsApi {
-    @GET("/restaurants")
+    @GET("/restaurants/.json")
     Call<List<Restaurant>> getAllRestaurants();
 
     @GET("/restaurants/{id}")

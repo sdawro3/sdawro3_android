@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "284664582097",
+    "firebase_url": "https://restaurants-8560c.firebaseio.com",
+    "project_id": "restaurants-8560c",
+    "storage_bucket": "restaurants-8560c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:284664582097:android:10d4f19d39ef7d5e",
+        "android_client_info": {
+          "package_name": "com.sdaacademy.zientara.rafal.jemsobie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "284664582097-nvcjqlfc1kvi7r6oqls6315dhc3fk707.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaXXW_gcowFNM8URcpoZmlOArH_3ljq0A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

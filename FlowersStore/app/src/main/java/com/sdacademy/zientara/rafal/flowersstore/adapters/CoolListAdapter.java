@@ -17,6 +17,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by Evil on 12.07.2017.
  */
@@ -45,23 +48,24 @@ public class CoolListAdapter extends ArrayAdapter<Flower> {
         if (rowView == null)
             rowView = inflater.inflate(R.layout.flower_item, parent, false);
 
+        ViewHolder holder = (ViewHolder) rowView.getTag();
+        if (holder == null) {
+            holder = new ViewHolder(rowView);
+            rowView.setTag(holder);
+        }
 
-        TextView nameText = (TextView) rowView.findViewById(R.id.flowerItem_nameText);
-        TextView priceText = (TextView) rowView.findViewById(R.id.flowerItem_priceText);
-        AppCompatImageView imageView = rowView.findViewById(R.id.flowerItem_imageView);
-
-        nameText.setText(flower.getName());
-        priceText.setText(String.format("%.2f $", flower.getPrice()));
+        holder.nameText.setText(flower.getName());
+        holder.priceText.setText(String.format("%.2f $", flower.getPrice()));
         Picasso.with(getContext())
                 .load(flower.getPhotoUrl())
                 .resize(imageSizePixels, imageSizePixels)
                 .centerCrop()
-                .into(imageView);
+                .into(holder.imageView);
 
         setOnRowClickedListener(flower, rowView);
-        setOnPriceClickedListener(flower, priceText);
+        setOnPriceClickedListener(flower, holder.priceText);
 
-        imageView.setOnTouchListener(new DoubleTap() {
+        holder.imageView.setOnTouchListener(new DoubleTap() {
             @Override
             protected void onFingerUp() {
                 Toast.makeText(getContext(), "Podniosles palec!", Toast.LENGTH_SHORT).show();
@@ -104,5 +108,20 @@ public class CoolListAdapter extends ArrayAdapter<Flower> {
         void onRowClicked(Flower flower);
 
         void onPriceClicked(Flower flower);
+    }
+
+    class ViewHolder {
+        @BindView(R.id.flowerItem_nameText)
+        TextView nameText;
+
+        @BindView(R.id.flowerItem_priceText)
+        TextView priceText;
+
+        @BindView(R.id.flowerItem_imageView)
+        AppCompatImageView imageView;
+
+        public ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 }
