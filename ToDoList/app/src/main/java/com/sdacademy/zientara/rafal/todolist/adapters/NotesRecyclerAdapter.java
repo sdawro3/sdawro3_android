@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.sdacademy.zientara.rafal.todolist.R;
 import com.sdacademy.zientara.rafal.todolist.models.Note;
-import com.sdacademy.zientara.rafal.todolist.viewHolders.NoteViewHolder;
+import com.sdacademy.zientara.rafal.todolist.adapters.viewHolders.NoteViewHolder;
 
 import java.util.List;
 
@@ -20,9 +20,11 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
 
     private final LayoutInflater inflater;
     private List<Note> noteList;
+    private OnNoteClicked onNoteClicked;
 
-    public NotesRecyclerAdapter(List<Note> noteList, Context context) {
+    public NotesRecyclerAdapter(List<Note> noteList, Context context, OnNoteClicked onNoteClicked) {
         this.noteList = noteList;
+        this.onNoteClicked = onNoteClicked;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -34,13 +36,31 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(NoteViewHolder holder, int position) {
-        Note note = noteList.get(position);
+    public void onBindViewHolder(NoteViewHolder holder, final int position) {
+        final Note note = noteList.get(position);
         holder.nameTextView.setText(note.getName());
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onNoteClicked != null) {
+                    onNoteClicked.onDeleteClicked(note);
+//                    onNoteClicked.onDeleteClicked(position);
+                }
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return noteList.size();
+    }
+
+    public interface OnNoteClicked {
+        void onDeleteClicked(Note note);
+        void onDeleteClicked(int position);
+
+        void onUpClicked(int position);
+
+        void onDownClicked(int position);
     }
 }

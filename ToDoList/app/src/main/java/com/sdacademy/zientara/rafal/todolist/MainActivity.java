@@ -17,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NotesRecyclerAdapter.OnNoteClicked {
 
     @BindView(R.id.main_noteEditText)
     EditText noteEditText;
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void prepareRecylerAdapter() {
-        adapter = new NotesRecyclerAdapter(noteList, getApplicationContext());
+        adapter = new NotesRecyclerAdapter(noteList, this, this);
         recyclerView.setAdapter(adapter);
         linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -60,5 +60,28 @@ public class MainActivity extends AppCompatActivity {
         noteList.add(0, note);
         adapter.notifyItemInserted(0);
         linearLayoutManager.scrollToPosition(0);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDeleteClicked(int position) {
+        noteList.remove(position);
+        adapter.notifyItemRemoved(position);
+    }
+
+    @Override
+    public void onDeleteClicked(Note note) {
+        int indexOfNote = noteList.indexOf(note);
+        onDeleteClicked(indexOfNote);
+    }
+
+    @Override
+    public void onUpClicked(int position) {
+
+    }
+
+    @Override
+    public void onDownClicked(int position) {
+
     }
 }

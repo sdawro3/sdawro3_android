@@ -11,7 +11,16 @@
         android:text="Dummy note"
         android:textSize="24sp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+
+
+    <ImageView
+        android:id="@+id/noteItem_delete"
+        android:padding="@dimen/medium_padding"
+        android:layout_width="@dimen/button_size"
+        android:layout_height="@dimen/button_size"
+        app:srcCompat="@android:drawable/ic_delete" />
 
     <ImageView
         android:id="@+id/noteItem_moveDown"
