@@ -15,6 +15,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     List<Note> noteList;
     private NotesRecyclerAdapter adapter;
+    private LinearLayoutManager linearLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,16 @@ public class MainActivity extends AppCompatActivity {
     private void prepareRecylerAdapter() {
         adapter = new NotesRecyclerAdapter(noteList, getApplicationContext());
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+    }
+
+    @OnClick(R.id.main_addButton)
+    public void addNote() {
+        Note note = new Note();
+        note.setName(noteEditText.getText().toString().trim());
+        noteList.add(0, note);
+        adapter.notifyItemInserted(0);
+        linearLayoutManager.scrollToPosition(0);
     }
 }

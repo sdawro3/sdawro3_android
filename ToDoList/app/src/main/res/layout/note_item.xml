@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
     android:padding="@dimen/medium_padding">
 
     <TextView
         android:id="@+id/noteItem_noteName"
         android:text="Dummy note"
+        android:textSize="24sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-</RelativeLayout>
+    <ImageView
+        android:id="@+id/noteItem_moveDown"
+        android:padding="@dimen/medium_padding"
+        android:layout_width="@dimen/button_size"
+        android:layout_height="@dimen/button_size"
+        app:srcCompat="@android:drawable/arrow_down_float" />
+
+    <ImageView
+        android:id="@+id/noteItem_moveUp"
+        android:padding="@dimen/medium_padding"
+        android:layout_width="@dimen/button_size"
+        android:layout_height="@dimen/button_size"
+        app:srcCompat="@android:drawable/arrow_up_float" />
+
+</LinearLayout>
