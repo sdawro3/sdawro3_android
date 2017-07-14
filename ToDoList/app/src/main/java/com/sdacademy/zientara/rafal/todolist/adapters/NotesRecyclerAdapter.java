@@ -36,16 +36,28 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(NoteViewHolder holder, final int position) {
+    public void onBindViewHolder(final NoteViewHolder holder, final int position) {
         final Note note = noteList.get(position);
         holder.nameTextView.setText(note.getName());
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onNoteClicked != null) {
-                    onNoteClicked.onDeleteClicked(note);
-//                    onNoteClicked.onDeleteClicked(position);
-                }
+                if (onNoteClicked != null)
+                    onNoteClicked.onDeleteClicked(holder.getAdapterPosition());
+            }
+        });
+        holder.moveUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onNoteClicked != null)
+                    onNoteClicked.onUpClicked(holder.getAdapterPosition());
+            }
+        });
+        holder.moveDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onNoteClicked != null)
+                    onNoteClicked.onDownClicked(holder.getAdapterPosition());
             }
         });
     }
@@ -56,7 +68,6 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     }
 
     public interface OnNoteClicked {
-        void onDeleteClicked(Note note);
         void onDeleteClicked(int position);
 
         void onUpClicked(int position);

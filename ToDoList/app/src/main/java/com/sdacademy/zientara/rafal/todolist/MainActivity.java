@@ -70,18 +70,18 @@ public class MainActivity extends AppCompatActivity implements NotesRecyclerAdap
     }
 
     @Override
-    public void onDeleteClicked(Note note) {
-        int indexOfNote = noteList.indexOf(note);
-        onDeleteClicked(indexOfNote);
-    }
-
-    @Override
     public void onUpClicked(int position) {
 
     }
 
     @Override
     public void onDownClicked(int position) {
+        if (position < noteList.size() - 1) {
+            Note note = noteList.get(position);
+            noteList.remove(position);
+            noteList.add(position + 1, note);
+            adapter.notifyItemMoved(position, position + 1);
+        }
 
     }
 }
