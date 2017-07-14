@@ -6,6 +6,7 @@ package com.sdacademy.zientara.rafal.todolist.models;
 
 public class Note {
     private String name;
+    private String url;
 
     public Note() {
     }
@@ -20,5 +21,13 @@ public class Note {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
