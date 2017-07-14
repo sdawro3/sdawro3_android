@@ -22,7 +22,7 @@ public class Note {
     public void setName(String name) {
         this.name = name;
     }
-
+    
     public String getUrlNote() {
         return urlNote;
     }
