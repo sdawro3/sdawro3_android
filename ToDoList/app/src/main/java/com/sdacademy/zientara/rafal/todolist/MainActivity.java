@@ -8,7 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.EditText;
 
 import com.sdacademy.zientara.rafal.todolist.adapters.NotesRecyclerAdapter;
+import com.sdacademy.zientara.rafal.todolist.dialogs.EditNoteDialog;
+import com.sdacademy.zientara.rafal.todolist.eventBusMessages.SaveNoteMessage;
 import com.sdacademy.zientara.rafal.todolist.models.Note;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +45,18 @@ public class MainActivity extends AppCompatActivity implements NotesRecyclerAdap
         ButterKnife.bind(this);
         prepareNotesData();
         prepareRecylerAdapter();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
     }
 
     private void prepareNotesData() {
@@ -76,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements NotesRecyclerAdap
             noteList.remove(position);
             noteList.add(position - 1, note);
             adapter.notifyItemMoved(position, position - 1);
+            linearLayoutManager.scrollToPosition(position - 1);
         }
     }
 
@@ -86,6 +105,25 @@ public class MainActivity extends AppCompatActivity implements NotesRecyclerAdap
             noteList.remove(position);
             noteList.add(position + 1, note);
             adapter.notifyItemMoved(position, position + 1);
+            linearLayoutManager.scrollToPosition(position + 1);
         }
+    }
+
+    @Override
+    public void onEditClicked(int position) {
+        Note note = noteList.get(position);
+        //// TODO: 14.07.2017 edit note!
+        EditNoteDialog dialog = EditNoteDialog.newInstance(note, position);
+        dialog.show(getSupportFragmentManager(), null);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void saveNoteFromDialog(SaveNoteMessage message) {
+        int position = message.getPosition();
+        Note note = message.getNote();
+        //// TODO: 14.07.2017 update list and notify adapter
+        noteList.remove(position);
+        noteList.add(position, note);
+        adapter.notifyItemChanged(position);
     }
 }

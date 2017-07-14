@@ -2,6 +2,8 @@ package com.sdacademy.zientara.rafal.todolist;
 
 import android.app.Application;
 
+import org.greenrobot.eventbus.EventBus;
+
 /**
  * Created by Evil on 13.07.2017.
  */

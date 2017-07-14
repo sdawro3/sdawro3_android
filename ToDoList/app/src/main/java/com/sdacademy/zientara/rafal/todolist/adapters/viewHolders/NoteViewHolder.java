@@ -21,6 +21,9 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.noteItem_delete)
     public ImageView deleteButton;
 
+    @BindView(R.id.noteItem_edit)
+    public ImageView editButton;
+
     @BindView(R.id.noteItem_moveDown)
     public ImageView moveDown;
 
